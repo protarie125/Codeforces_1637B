@@ -26,44 +26,6 @@ vvi getSubs(int n, const vi& lst) {
 	return ret;
 }
 
-vvi memo;
-int mex(int len, const vi& sub, int b, int e) {
-	if (memo[b][e] < 0) {
-		auto mn = sub[b];
-		auto mx = sub[b];
-		for (int i = b; i <= e; ++i) {
-			if (sub[i] < mn) {
-				mn = sub[i];
-			}
-
-			if (mx < sub[i]) {
-				mx = sub[i];
-			}
-		}
-
-		if (0 < mn) {
-			memo[b][e] = 0;
-			return memo[b][e];
-		}
-
-		auto isOccur = vb(mx + 1, false);
-		for (int i = b; i <= e; ++i) {
-			isOccur[sub[i]] = true;
-		}
-
-		for (int i = 0; i < mx; ++i) {
-			if (!isOccur[i]) {
-				memo[b][e] = i;
-				return memo[b][e];
-			}
-		}
-
-		memo[b][e] = mx + 1;
-	}
-
-	return memo[b][e];
-}
-
 int getValue(int len, const vi& sub) {
 	auto ans = len;
 	for (const auto& x : sub) {
@@ -81,8 +43,6 @@ int solve(int n, const vi& lst) {
 	const auto& subs = getSubs(n, lst);
 	for (const auto& sub : subs) {
 		auto sz = static_cast<int>(sub.size());
-		memo = vvi(sz, vi(sz, -1));
-
 		ans += getValue(sz, sub);
 	}
 
