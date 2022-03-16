@@ -64,23 +64,12 @@ int mex(int len, const vi& sub, int b, int e) {
 	return memo[b][e];
 }
 
-int getCost(int len, const vi& sub) {
+int getValue(int len, const vi& sub) {
 	auto ans = len;
 	for (const auto& x : sub) {
 		if (0 == x) {
 			++ans;
 		}
-	}
-
-	return ans;
-}
-
-int getValue(int len, const vi& sub) {
-	auto ans = int{ 0 };
-	const auto& c = getCost(len, sub);
-
-	if (ans < c) {
-		ans = c;
 	}
 
 	return ans;
